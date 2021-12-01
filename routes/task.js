@@ -71,6 +71,29 @@ taskRouter.post('/', async (request, response) => {
   response.status(500).end();
 });
 
+taskRouter.put('/', async (request, response) => {
+  const body = request.body;
+
+  if (!body || !('id' in body)) {
+    response.status(400).send({ error: 'missing content' });
+    return;
+  }
+
+  try {
+    const token = jwt.decode(request.get('authorization'));
+    await Task.findByIdAndUpdate(body.id).where({ user: token.id });
+
+  } catch (e) {
+
+    if (e.kind === 'ObjectId') {
+      response.status(400).send({ error: 'invalid id' });
+      return;
+    }
+    throw e;
+  }
+  response.status(204).end();
+});
+
 taskRouter.delete('/', async (request, response) => {
   const body = request.body;
 
