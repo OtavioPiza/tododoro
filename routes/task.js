@@ -91,9 +91,22 @@ taskRouter.put('/', async (request, response) => {
     return;
   }
 
-  try {
+  const data = {
+    title: 'title' in body ? body.title : null,
+    description: 'description' in body ? body.description : null,
+  };
+
+  if (!('description' in body)) {
+    delete data.description;
+  }
+
+  if (!('title' in body)) {
+    delete data.title;
+  }
+
+  if (data) try {
     const token = jwt.decode(request.get('authorization'));
-    await Task.findByIdAndUpdate(body.id).where({ user: token.id });
+    await Task.findByIdAndUpdate(body.id, data).where({ user: token.id });
 
   } catch (e) {
 

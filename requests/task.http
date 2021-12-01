@@ -41,3 +41,14 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik90YXZpb1Bp
 
 GET http://localhost:3001/api/task
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik90YXZpb1BpemEiLCJlbWFpbCI6Im90YXZpb3BpemEyN0BnbWFpbC5jb20iLCJpZCI6IjYxOWU5MWExODI4ODBiMzczZTZhYTYwMiIsImlhdCI6MTYzODE1ODQ1M30.JMu9P-8bMGv8cm8NnUGnt6RHIyjhn21SYJKiCmqGF5M
+
+###
+
+PUT http://localhost:3001/api/task
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ik90YXZpb1BpemEiLCJlbWFpbCI6Im90YXZpb3BpemEyN0BnbWFpbC5jb20iLCJpZCI6IjYxOWU5MWExODI4ODBiMzczZTZhYTYwMiIsImlhdCI6MTYzODMyMTQxOH0.0JR-8ZYUhGvpk_pW_EUqzh1Vw9g63ZbuS0IP2xq_oEQ
+
+{
+  "id": "61a62c45359a9e3496ccc16a",
+  "description": "I am not doing that right now"
+}
