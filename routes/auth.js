@@ -2,10 +2,11 @@
  * router for auth routes
  *
  * @version 1.0.0
- * @author Otavio Sartorelli de Toledo Piza
  */
 
-/* imports */
+// == imports == //
+
+/* libs */
 
 const express = require('express');
 const bcrypt = require('bcrypt');
@@ -26,12 +27,15 @@ const tokenVerifier = require('../middleware/tokenVerifier');
 
 const User = require('../models/user');
 
+// == routes == //
+
 /* setup */
 
-const authRouter = express.Router();
 const saltRounds = 8;
 
 /* routes */
+
+const authRouter = express.Router();
 
 /**
  * registers a new user
@@ -201,6 +205,6 @@ authRouter.post('/verify/resend', async (request, response) => {
   response.status(500).end();
 });
 
-/* exports */
+// == exports == //
 
 module.exports = authRouter;
