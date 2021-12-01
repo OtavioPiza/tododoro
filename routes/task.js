@@ -22,15 +22,24 @@ const User = require('../models/user');
 
 // == routes == //
 
-const taskRouter = express.Router();
+const taskRouter  = express.Router();
 
+/**
+ * verifies if the request contains a valid token
+ */
 taskRouter.use(tokenVerifier);
 
+/**
+ * gets all tasks for a given user
+ */
 taskRouter.get('/', async (request, response) => {
   const token = jwt.decode(request.get('authorization'));
   response.status(200).send(await Task.find({ user: token.id }));
 });
 
+/**
+ * creates a new task for a given user
+ */
 taskRouter.post('/', async (request, response) => {
   const body = request.body;
 
@@ -71,6 +80,9 @@ taskRouter.post('/', async (request, response) => {
   response.status(500).end();
 });
 
+/**
+ * updates a given task for a given user
+ */
 taskRouter.put('/', async (request, response) => {
   const body = request.body;
 
@@ -94,6 +106,9 @@ taskRouter.put('/', async (request, response) => {
   response.status(204).end();
 });
 
+/**
+ * deletes a given task for a given user
+ */
 taskRouter.delete('/', async (request, response) => {
   const body = request.body;
 
