@@ -18,7 +18,10 @@ const logger = require('../utils/logger');
 const requestLogger = (request, response, next) => {
   logger.info(`Method:\t${request.method}`);
   logger.info(`Path:\t${request.path}`);
-  logger.info(`Body:\t${JSON.stringify(request.body)}`);
+  logger.info(`Body:\t${JSON.stringify({
+    ...request.body,
+    password: '****'
+  })}`);
   logger.info('---');
   next();
 };

@@ -2,15 +2,16 @@
  * user model for mongodb
  *
  * @version 1.0.0
- * @author Otavio Sartorelli de Toledo Piza
  */
 
-/* imports */
+// == imports == //
+
+/* libs */
 
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-/* schemas */
+// == schemas == //
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -81,6 +82,6 @@ userSchema.statics.findByEmail = (email) => {
 
 const User = mongoose.model('User', userSchema);
 
-/* export */
+// == exports == //
 
 module.exports = User;
