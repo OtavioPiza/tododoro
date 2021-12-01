@@ -7,7 +7,7 @@
 
 /* setup express async errors */
 
-require('express-async-errors');
+require('express-async-errors');  // calls next on errors
 
 /* lib imports */
 
