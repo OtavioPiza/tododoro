@@ -60,16 +60,16 @@ app.use('/api/auth', authRouter);
 app.use('/api/task', taskRouter);
 
 /**
+ * provides 404 page if route is not found
+ */
+app.use('/api/*', unknownEndpoint);
+
+/**
  * default route
  */
 app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
-
-/**
- * provides 404 page if route is not found
- */
-app.use(unknownEndpoint);
 
 /**
  * handles errors by sending 500 and logging to console
