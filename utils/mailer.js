@@ -5,21 +5,11 @@
 /* imports*/
 
 const nodemailer = require('nodemailer');
-const {google} = require('googleapis');
 const config = require('../config/config');
 
 /* setup */
 
 // fill client id and client secret
-
-const oAuth = new google.auth.OAuth2(
-  '377525267557-ous157vpt3p00bbpe52dufm54gestri8.apps.googleusercontent.com',
-  config.CLIENT_SECRET,
-  config.REDIRECT_URI
-);
-oAuth.setCredentials({ refresh_token: config.REFRESH_TOKEN });
-
-/* functions */
 
 /**
  * sends an email
@@ -41,12 +31,8 @@ const send = async (to, cc, bcc, subject, text, html) => {
     const transport = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        type: 'oauth2',
-        user: 'tododorotimer@gmail.com',
-        clientId: '377525267557-ous157vpt3p00bbpe52dufm54gestri8.apps.googleusercontent.com',
-        clientSecret: config.CLIENT_SECRET,
-        refreshToken: config.REFRESH_TOKEN,
-        accessToken: oAuth.getAccessToken()
+        user: config.EMAIL,
+        pass: config.PASSWORD
       }
     });
 
