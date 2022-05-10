@@ -12,7 +12,7 @@ const logger = require('../utils/logger');
  */
 const connect = (database) => (
   mongoose.createConnection(
-    `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_HOST}/?${config.MONGO_OPTIONS}`,
+    `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_HOST}/${database}?${config.MONGO_OPTIONS}`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
