@@ -8,6 +8,7 @@
 
 /* libs */
 
+const { DB_USER } = require('../config/config');
 const mongoose = require('mongoose');
 const connection = require('../config/mongodb').connect('user');
 const uniqueValidator = require('mongoose-unique-validator');
@@ -81,7 +82,7 @@ userSchema.statics.findByEmail = (email) => {
 
 /* model */
 
-const User = connection.model('user', userSchema);
+const User = connection.model(DB_USER, userSchema);
 
 // == exports == //
 
