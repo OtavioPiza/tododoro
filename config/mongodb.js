@@ -1,33 +1,35 @@
-/**
- * configures mongodb
- *
- * @version 1.0.0
- * @author Otavio Sartorelli de Toledo Piza
- */
-
-/* lib imports */
-
 const mongoose = require('mongoose');
-
-/* config */
-
 const config = require('./config');
-
-/* utils */
-
 const logger = require('../utils/logger');
 
 /* setup database */
 
-logger.info(`connecting to ${config.MONGODB_URI}`);
+/**
+ * Connects to the mongo database
+ * 
+ * @param {String} database database name
+ * @returns connection to database
+ */
+const connect = (database) => (
+  mongoose.createConnection(
+    `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_HOST}/?${config.MONGO_OPTIONS}`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+    (error, res) => {
+      if (error) {
+        logger.error(error);
+        throw error;
 
-mongoose.connect(config.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}, (error) => {
-  error ? logger.error(error) : logger.info('connected to mongo');
-});
+      } else {
+        logger.info('connected to mongo: ' + database);
+        return res;
+      }
+    }
+  )
+);
 
 /* exports */
 
-module.exports = mongoose.connection;
+module.exports = { connect };

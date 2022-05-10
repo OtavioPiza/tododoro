@@ -7,6 +7,7 @@
 // == imports == //
 
 const mongoose = require('mongoose');
+const connection = require('../config/mongodb').connect('task');
 
 // == schemas == //
 
@@ -45,7 +46,7 @@ taskSchema.set('toJSON', {
 
 // == model == //
 
-const Task = mongoose.model('Task', taskSchema);
+const Task = connection.model('task', taskSchema);
 
 // == exports == //
 

@@ -1,9 +1,3 @@
-/**
- * Load information on .env file
- *
- * @version 1.0.0
- * @author Otavio Sartorelli de Toledo Piza
- */
 const process = require('process');
 
 /* setup dotenv */
@@ -13,8 +7,12 @@ require('dotenv').config();
 /* export */
 
 module.exports = {
+  MONGO_USER: process.env.MONGO_USER,
+  MONGO_PASSWORD: process.env.MONGO_PASSWORD,
+  MONGO_HOST: process.env.MONGO_HOST,
+  MONGO_OPTIONS: process.env.MONGO_OPTIONS,
+
   PORT: process.env.PORT,
-  MONGODB_URI: process.env.NODE_ENV === 'test' ? process.env.TEST_MONGODB_URI : process.env.MONGODB_URI,
   SECRET: process.env.SECRET,
   EMAIL: process.env.EMAIL,
   PASSWORD: process.env.PASSWORD,
