@@ -22,7 +22,7 @@ const User = require('../models/user');
 
 // == routes == //
 
-const taskRouter  = express.Router();
+const taskRouter = express.Router();
 
 /**
  * verifies if the request contains a valid token
@@ -34,7 +34,7 @@ taskRouter.use(tokenVerifier);
  */
 taskRouter.get('/', async (request, response) => {
   const token = jwt.decode(request.get('authorization'));
-  response.status(200).send(await Task.find({ user: token.id }));
+  return Task.find({ user: token.id }).then(tasks => response.status(200).send(tasks).end());
 });
 
 /**
@@ -50,8 +50,8 @@ taskRouter.post('/', async (request, response) => {
   const token = jwt.decode(request.get('authorization'));
   const user = await User.findById(token.id);
 
-  if (!user)  {
-    response.send(401).send({ error: 'this user does not exist'});
+  if (!user) {
+    return response.send(401).send({ error: 'this user does not exist' });
   }
 
   const task = new Task({
@@ -59,25 +59,19 @@ taskRouter.post('/', async (request, response) => {
     title: body.title,
     description: 'description' in body ? body.description : null,
     due: 'due' in body ? body.due : null,
+    priority: 'priority' in body ? body.priority : null
   });
 
-  try {
-    const res = await task.save();
-    response.status(201).send({
-      id: res._id,
-      title: res.title,
-      description: 'description' in res ? res.description : null,
-      due: 'due' in res ? res.due : null
-    });
-
-  } catch (e) {
-
-    if (e.message.startsWith('Task validation failed')) {
-      response.status(400).send(e.message);
-    }
-    throw e;
-  }
-  response.status(500).end();
+  return task
+    .save()
+    .then(task => response.status(201).send({
+      id: task.id,
+      title: task.title,
+      description: task.description,
+      due: task.due,
+      priority: task.priority
+    }).end())
+    .catch(() => response.status(400).send({ error: 'Task validatiton failed' }).end());
 });
 
 /**
