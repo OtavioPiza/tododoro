@@ -45,9 +45,12 @@ authRouter.post('/register',
 
     return user
       .save()
-      .then((res) => response.status(201).send({ token: jwt.signToken(res.username, res.email, res._id) }))
-      .catch((err) => response.status(400).send(err.message))
-      .then(() => sendVerificationCode(user.email, user.verification.code));
+      .then((res) => {
+        sendVerificationCode(user.email, user.verification.code)
+          .then(() => response.status(201).send({ token: jwt.signToken(res.username, res.email, res._id) }))
+          .catch(() => response.status(201).send({ token: jwt.signToken(res.username, res.email, res._id) }));
+      })
+      .catch((err) => response.status(400).send(err.message));
   });
 
 /**
