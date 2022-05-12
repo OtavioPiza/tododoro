@@ -36,7 +36,6 @@ const verifyToken = (token) => {
   } catch (e) {
     return false;
   }
-
 };
 
 /**

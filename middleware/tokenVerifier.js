@@ -1,9 +1,4 @@
-/**
- * verifies if the toke provided by the user is valid
- */
-
-/* imports */
-
+const User = require('../models/user');
 const jwt = require('../utils/jwt');
 
 /* middleware */
@@ -15,13 +10,24 @@ const jwt = require('../utils/jwt');
  * @param response
  * @param next
  */
-const tokenVerifier = (request, response, next) => {
+const tokenVerifier = async (request, response, next) => {
   const token = request.get('authorization');
 
   if (!token || !jwt.verifyToken(token)) {
     response.status(401).end();
     return;
   }
+
+  const decoded = jwt.decode(token);
+  const user = await User.findById(decoded.id);
+
+  if (!user) {
+    response.status(401).end();
+    return;
+  }
+
+  request.user = user;
+
   next();
 };
 
