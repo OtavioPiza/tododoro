@@ -42,7 +42,8 @@ taskRouter.post('/', bodyVerifier(['title']), async (request, response) => {
       id: res._id,
       title: res.title,
       description: 'description' in res ? res.description : null,
-      due: 'due' in res ? res.due : null
+      due: 'due' in res ? res.due : null,
+      priority: 'priority' in res ? res.priority : -1
     }))
     .catch((e) => {
       if (e.message.startsWith('Task validation failed')) {
