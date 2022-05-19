@@ -11,22 +11,23 @@ const logger = require('../utils/logger');
  * @returns connection to database
  */
 const connect = (database) => (
-  mongoose.createConnection(
-    `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_HOST}/${database}?${config.MONGO_OPTIONS}`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    },
-    (error, res) => {
-      if (error) {
-        logger.error(error);
-        throw error;
+  mongoose.createConnection(config.MONGO_LOCAL 
+    ? `mongodb://localhost:27017/${database}?${config.MONGO_OPTIONS}`
+    : `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_HOST}/${database}?${config.MONGO_OPTIONS}`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (error, res) => {
+    if (error) {
+      logger.error(error);
+      throw error;
 
-      } else {
-        logger.info('connected to mongo: ' + database);
-        return res;
-      }
+    } else {
+      logger.info('connected to mongo: ' + database);
+      return res;
     }
+  }
   )
 );
 

@@ -7,6 +7,7 @@ require('dotenv').config();
 /* export */
 
 module.exports = {
+  MONGO_LOCAL: process.env.MONGO_LOCAL == 'true' ? true : false,
   MONGO_USER: process.env.MONGO_USER,
   MONGO_PASSWORD: process.env.MONGO_PASSWORD,
   MONGO_HOST: process.env.MONGO_HOST,
