@@ -35,7 +35,12 @@ const taskSchema = new mongoose.Schema({
     required: false,
     max: 4,
     min: 0
-  }
+  },
+  created: {
+    type: Date,
+    default: Date.now,
+    required: true
+  },
 });
 
 // == properties == //
